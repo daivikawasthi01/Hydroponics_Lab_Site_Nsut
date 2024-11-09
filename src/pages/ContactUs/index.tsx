@@ -7,8 +7,8 @@ const ContactUs: React.FC = () => {
         email: '',
         message: ''
     });
+    const [submissionStatus, setSubmissionStatus] = useState<null | string>(null);
 
-    
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
         setFormData((prevData) => ({
@@ -17,10 +17,10 @@ const ContactUs: React.FC = () => {
         }));
     };
 
-    
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        alert(`Message Sent!\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`);
+        setSubmissionStatus('Message Sent Successfully!');
+        setTimeout(() => setSubmissionStatus(null), 5000); // Clears the message after 5 seconds
         setFormData({ name: '', email: '', message: '' });
     };
 
@@ -36,6 +36,7 @@ const ContactUs: React.FC = () => {
                         value={formData.name}
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border border-[#4A5D23] rounded-md focus:ring-2 focus:ring-[#4A5D23]"
+                        placeholder="Enter your name"
                         required
                     />
                 </div>
@@ -47,6 +48,7 @@ const ContactUs: React.FC = () => {
                         value={formData.email}
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border border-[#4A5D23] rounded-md focus:ring-2 focus:ring-[#4A5D23]"
+                        placeholder="Enter your email"
                         required
                     />
                 </div>
@@ -58,16 +60,24 @@ const ContactUs: React.FC = () => {
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border border-[#4A5D23] rounded-md focus:ring-2 focus:ring-[#4A5D23]"
                         rows={5}
+                        placeholder="Type your message here"
                         required
                     ></textarea>
                 </div>
                 <button
                     type="submit"
-                    className="w-full bg-[#4A5D23] text-white py-2 rounded-md hover:bg-black"
+                    className="w-full bg-[#6CA966] text-white py-2 rounded-md hover:bg-black"
                 >
                     Send Message
                 </button>
+                {submissionStatus && <p className="text-center text-green-600 my-4">{submissionStatus}</p>}
             </form>
+            {/* Contact Information */}
+            <div className="text-center text-white mt-6">
+                <p>Phone: (123) 456-7890</p>
+                <p>Email: hydroponics.lab@college.edu</p>
+                <p>Address: 123 Greenhouse Lane, College Campus</p>
+            </div>
         </div>
     );
 };
